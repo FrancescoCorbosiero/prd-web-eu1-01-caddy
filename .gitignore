@@ -1,0 +1,4 @@
+/data
+/config
+get-docker.sh
+.env
