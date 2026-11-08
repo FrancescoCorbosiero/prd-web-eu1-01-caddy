@@ -1,6 +1,8 @@
 # Caddy Docker Proxy - Reverse Proxy Infrastructure
 # Run this FIRST before any WordPress sites
 # Usage: docker compose up -d
+# After changing this file, apply it with `docker compose up -d`
+# (never `restart`, which does not apply compose changes; never `down`, which removes the shared caddy network)
 
 networks:
   caddy:
@@ -28,6 +30,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - caddy_data:/data
       - caddy_config:/config
+      # Cloudflare Origin Certificate for *.alpacode.it (alpacode-origin.pem / .key), files kept only on the server, never in git; add a caddy.tls label pointing to /certs only after these files exist, or the whole proxy config fails to load
+      - ./certs:/certs:ro
     labels:
       # Global Caddy options (applied to all sites)
       caddy.email: ${ACME_EMAIL:-admin@example.com}

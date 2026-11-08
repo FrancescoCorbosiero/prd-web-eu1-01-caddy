@@ -2,3 +2,4 @@
 /config
 get-docker.sh
 .env
+certs/
